@@ -13,25 +13,28 @@
     <section id="game" class="gradient-background">
         <div class="px-4 text-center">
             <img class="d-block mx-auto img-fluid py-5" src="./dice.png" alt="dice" width="200">
-            <h1 class="display-5 fw-bold text-light">Dice Game</h1>
+            <h1 class="display-4 fw-bold text-light">Dice Game</h1>
         </div>
         <div class="container py-5">
             <div class="row text-center">
                 <div class="col-6">
                     <div class="d-flex flex-column align-items-center">
-                        <h2 class="pb-5">Player 1</h2>
+                        <h2 id="player1" class="py-3">Player 1</h2>
                         <div id="dice1"></div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="d-flex flex-column align-items-center">
-                        <h2 class="pb-5">Player 2</h2>
+                        <h2 id="player2" class="py-3">Player 2</h2>
                         <div id="dice2"></div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="px-4 py-5 text-center">
+            <h4 id="result" class="blink-me display-1 fw-bold text-light"></h4>
+        </div>
     </section>
+    <script src="index.js"></script>
 </body>
-
 </html>
