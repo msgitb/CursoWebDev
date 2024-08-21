@@ -1,0 +1,40 @@
+body {
+    text-align: center;
+    background-color: #011F3F;
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2rem;
+    margin:  5%;
+    color: #FEF2BF;
+  }
+
+button {
+    margin: 20px;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 10%;
+    border-color: black;
+    border-width: 10px;
+}
+
+.red{
+    background-color: red;
+}
+
+.blue{
+    background-color: blue;
+}
+
+.green{
+    background-color: green;
+}
+
+.yellow{
+    background-color: yellow;
+}
+
+.pressed {
+    box-shadow: 0 0 20px white;
+    background-color: grey;
+  }
+  
