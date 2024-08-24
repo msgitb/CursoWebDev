@@ -150,4 +150,4 @@ app.listen(3000, "localhost", (err) => {
   console.log("Listening on 3000...");
 });
 
-export default serverless(app);
+export default handler = serverless(app);
