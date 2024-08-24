@@ -1,5 +1,4 @@
 import bodyParser from "body-parser";
-import e from "express";
 import express from "express";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -150,4 +149,4 @@ app.set("view engine", "ejs");
   console.log("Listening on 3000...");
 });*/
 
-export default serverless(app);
+export const handler = serverless(api);
