@@ -143,11 +143,7 @@ app.post("/newpost", (req, res) => {
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-/*app.listen(3000, "localhost", (err) => {
+app.listen(3000, "192.168.1.191", (err) => {
   if (err) throw err;
   console.log("Listening on 3000...");
-});*/
-
-api.use("/api/", router);
-
-export const handler = serverless(api);
+});
