@@ -8,6 +8,10 @@ import morgan from "morgan";
 import fs from "fs";
 import path from "path";
 
+import serverless from "serverless-http";
+const router = express.Router();
+app.use("/.netlify/functions/app", router);
+
 var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
   flags: "a",
 });
@@ -145,3 +149,5 @@ app.listen(3000, "localhost", (err) => {
   if (err) throw err;
   console.log("Listening on 3000...");
 });
+
+export default serverless(app);

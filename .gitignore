@@ -18,6 +18,7 @@ Dom Examples/DOM Challenge Starting Files/styles.css
 jQuery/index.html
 jQuery/index.js
 jQuery/styles.css
-*node_modules
 PersonalBlog/access.log
 PersonalBlog/access.log
+node_modules/
+.netlify
