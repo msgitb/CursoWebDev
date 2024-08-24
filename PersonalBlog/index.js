@@ -6,6 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 import morgan from "morgan";
 import fs from "fs";
 import path from "path";
+const port = process.env.PORT || 3000;
 
 import serverless from "serverless-http";
 const router = express.Router();
@@ -143,7 +144,7 @@ app.post("/newpost", (req, res) => {
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-app.listen(3000, "192.168.1.191", (err) => {
+app.listen(port, (err) => {
   if (err) throw err;
   console.log("Listening on 3000...");
 });
