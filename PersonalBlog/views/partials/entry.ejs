@@ -1,0 +1,17 @@
+<div class="container-fluid border border-primary mt-4 rounded border-opacity-50 border-3 overflow-auto">
+    <div class="px-4 py-5 my-5">
+        <h1 class="col-lg-6 mx-auto display-5 fw-bold text-body-emphasis header pb-5">
+            <%= entry.title %>
+        </h1>
+        <div class="col-lg-6 mx-auto text-body-emphasis ">
+            <p class="mb-4 pb-3">
+                <%= entry.message %>
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+                <a class="pt-2 px-4" href="/editpost?id=<%= entry.id %>"><img width="30px" src="edit.png"></img></a>
+                <a class="pt-2 px-4" href="/deletepost?id=<%= entry.id %>"><img width="30px" src="delete.png"></img></a>
+                <a href="/"><button type="button" class="btn btn-outline-secondary btn-lg px-4">Back</button></a>
+            </div>
+        </div>
+    </div>
+</div>

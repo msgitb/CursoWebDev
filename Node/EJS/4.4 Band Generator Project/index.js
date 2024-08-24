@@ -30,9 +30,13 @@ app.post("/submit", (req, res) => {
   //scroll down to see the two arrays.
   //2. Send the index.ejs as a response and add the adjective and noun to the res.render
   //3. Test to make sure that the random words display in the h1 element in index.ejs
-  var bandName = `${adj[Math.floor(Math.random() * adj.length)]} ${
-    noun[Math.floor(Math.random() * noun.length)]
-  } `;
+  var adjective = adj[Math.floor(Math.random() * adj.length)],
+    bandNoun = noun[Math.floor(Math.random() * noun.length)];
+  var capitalizedAdj =
+    adjective.charAt(0).toLocaleUpperCase() + adjective.slice(1);
+  var capitalizedNoun =
+    bandNoun.charAt(0).toLocaleUpperCase() + bandNoun.slice(1);
+  var bandName = `${capitalizedAdj} ${capitalizedNoun} `;
   res.render("index.ejs", { name: bandName });
 });
 
