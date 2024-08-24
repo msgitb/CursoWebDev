@@ -10,13 +10,13 @@ import path from "path";
 
 import serverless from "serverless-http";
 const router = express.Router();
-app.use("/.netlify/functions/app", router);
 
 var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
   flags: "a",
 });
 
 var app = express();
+app.use("/.netlify/functions/app", router);
 
 var entries = [
   {
@@ -145,9 +145,9 @@ app.post("/newpost", (req, res) => {
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-app.listen(3000, "localhost", (err) => {
+/*app.listen(3000, "localhost", (err) => {
   if (err) throw err;
   console.log("Listening on 3000...");
-});
+});*/
 
-export default handler = serverless(app);
+export default serverless(app);
