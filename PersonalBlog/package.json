@@ -18,7 +18,8 @@
     "express": "^4.19.2",
     "i": "^0.3.7",
     "morgan": "^1.10.0",
-    "npm": "^10.8.2"
+    "npm": "^10.8.2",
+    "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
     "webpack": "^5.94.0",

@@ -11,5 +11,6 @@ export default {
     publicPath: "/",
     filename: "final.js",
   },
+
   target: "node",
 };
