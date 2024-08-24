@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "webpack"
   },
   "author": "Marcelo Silva",
   "license": "ISC",
@@ -18,5 +19,9 @@
     "i": "^0.3.7",
     "morgan": "^1.10.0",
     "npm": "^10.8.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
   }
 }
