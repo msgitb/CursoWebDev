@@ -1,5 +1,14 @@
+import express, { Router } from "express";
+import serverless from "serverless-http";
+
+const api = express();
+
+const router = Router();
+router.get("/hello", (req, res) => res.send("Hello World!"));
+
+
+
 import bodyParser from "body-parser";
-import express from "express";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -7,8 +16,6 @@ import morgan from "morgan";
 import fs from "fs";
 import path from "path";
 
-import serverless from "serverless-http";
-const router = express.Router();
 
 var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
   flags: "a",
@@ -45,14 +52,13 @@ function comparator(a, b) {
   } else return -1;
 }
 
-app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 entries.sort(comparator);
 
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
   if (req.query.search) {
     var searchResult = [];
 
@@ -77,13 +83,13 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/newpost", (req, res) => {
+router.get("/newpost", (req, res) => {
   res.render("index.ejs", {
     newPost: true,
   });
 });
 
-app.get("/viewpost", (req, res) => {
+router.get("/viewpost", (req, res) => {
   var postToView = entries.find((el) => {
     return el.id.toString() === req.query.id;
   });
@@ -93,7 +99,7 @@ app.get("/viewpost", (req, res) => {
   });
 });
 
-app.get("/editpost", (req, res) => {
+router.get("/editpost", (req, res) => {
   var postToView = entries.find((el) => {
     return el.id.toString() === req.query.id;
   });
@@ -104,7 +110,7 @@ app.get("/editpost", (req, res) => {
   });
 });
 
-app.get("/deletepost", (req, res) => {
+router.get("/deletepost", (req, res) => {
   var position;
   entries.find((el) => {
     position = entries.indexOf(el);
@@ -117,7 +123,7 @@ app.get("/deletepost", (req, res) => {
   });
 });
 
-app.post("/editpost", (req, res) => {
+router.post("/editpost", (req, res) => {
   var position;
   entries.find((el) => {
     position = entries.indexOf(el);
@@ -131,7 +137,7 @@ app.post("/editpost", (req, res) => {
   });
 });
 
-app.post("/newpost", (req, res) => {
+router.post("/newpost", (req, res) => {
   var newEntry = req.body;
   newEntry.date = new Date();
   newEntry.id = entries.length;
