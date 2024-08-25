@@ -1,13 +1,13 @@
-<div class="container col-3 py-5 ">
+<div class="container-fluid col-6 col-lg-3 py-lg-5 py-1">
     <div>
         <h1>New Post:</h1>
     </div>
     <form action="/newpost" method="POST" class="was-validated">
-        <div class="form-group pt-5">
+        <div class="form-group pt-lg-5">
             <label for="titleInput">Title</label>
             <input type="text" class="form-control" id="titleInput" name="title" placeholder="Title" required>
         </div>
-        <div class="form-group py-5 w-100">
+        <div class="form-group py-lg-5 py-2 w-100">
             <label for="messageInput">Message:</label>
             <textarea rows="7" class="form-control" id="messageInput" placeholder="Message" name="message"
                 required></textarea>
