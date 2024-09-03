@@ -22,3 +22,4 @@ PersonalBlog/access.log
 PersonalBlog/access.log
 node_modules/
 .netlify
+access.log
