@@ -23,3 +23,4 @@ PersonalBlog/access.log
 node_modules/
 .netlify
 access.log
+*.pem

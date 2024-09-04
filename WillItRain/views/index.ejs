@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will it rain?</title>
+</head>
+
+<body>
+    <script>
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            window.location.href = `/check?latitude=${latitude}&longitude=${longitude}`;
+        }
+
+        function error() {
+            console.log("Unable to retrieve your location");
+        }
+
+        const checkLocation = () => {
+            if (!navigator.geolocation) {
+                console.log("Geolocation is not supported by your browser");
+            } else {
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+        };
+        checkLocation();
+
+    </script>
+</body>
+
+</html>
