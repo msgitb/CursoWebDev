@@ -18,16 +18,37 @@ const API_KEY_LYRICS = process.env.API_KEY_LYRICS;
 const API_UID_LYRICS = process.env.API_UID_LYRICS;
 const DEV_ENV = process.env.DEV_ENV;
 
-const sunnySong = JSON.parse(
-    fs.readFileSync(path.join("public/sunnySong.json"))
-  ),
-  sunnyQuote = JSON.parse(
-    fs.readFileSync(path.join("public/sunnyQuotes.json"))
-  ),
-  rainyQuote = JSON.parse(
-    fs.readFileSync(path.join("public/rainyQuotes.json"))
-  ),
-  rainySong = JSON.parse(fs.readFileSync(path.join("public/rainySong.json")));
+if (DEV_ENV) {
+  const sunnySong = JSON.parse(
+      fs.readFileSync(path.join("public/sunnySong.json"))
+    ),
+    sunnyQuote = JSON.parse(
+      fs.readFileSync(path.join("public/sunnyQuotes.json"))
+    ),
+    rainyQuote = JSON.parse(
+      fs.readFileSync(path.join("public/rainyQuotes.json"))
+    ),
+    rainySong = JSON.parse(fs.readFileSync(path.join("public/rainySong.json")));
+
+  const getSunnyValues = () => {
+    const type = Math.floor(Math.random() * 2);
+    var pos;
+
+    if (type === 0) {
+      pos = Math.floor(Math.random() * sunnySong.result.length);
+      return {
+        message: `${sunnySong.result[pos].song} - <em>${sunnySong.result[pos].artist}</em>`,
+        author: `Album: ${sunnySong.result[pos].album}`,
+      };
+    } else {
+      pos = Math.floor(Math.random() * sunnyQuote.result.length);
+      return {
+        message: `"${sunnyQuote.result[pos].quote}"`,
+        author: `<em>${sunnyQuote.result[pos].author}</em>`,
+      };
+    }
+  };
+}
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,25 +56,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
-
-const getSunnyValues = () => {
-  const type = Math.floor(Math.random() * 2);
-  var pos;
-
-  if (type === 0) {
-    pos = Math.floor(Math.random() * sunnySong.result.length);
-    return {
-      message: `${sunnySong.result[pos].song} - <em>${sunnySong.result[pos].artist}</em>`,
-      author: `Album: ${sunnySong.result[pos].album}`,
-    };
-  } else {
-    pos = Math.floor(Math.random() * sunnyQuote.result.length);
-    return {
-      message: `"${sunnyQuote.result[pos].quote}"`,
-      author: `<em>${sunnyQuote.result[pos].author}</em>`,
-    };
-  }
-};
 
 const getQuote = async (term) => {
   console.log(`Getting quote for ${term}`);
