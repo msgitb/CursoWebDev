@@ -18,6 +18,8 @@ const API_KEY_LYRICS = process.env.API_KEY_LYRICS;
 const API_UID_LYRICS = process.env.API_UID_LYRICS;
 const DEV_ENV = process.env.DEV_ENV;
 
+console.log(`DEV_ENV: ${DEV_ENV}`);
+
 if (DEV_ENV) {
   const sunnySong = JSON.parse(
       fs.readFileSync(path.join("public/sunnySong.json"))
@@ -183,12 +185,11 @@ var server;
 
 if (DEV_ENV === true) {
   server = https.createServer(options, app);
+  server.listen(port, () => {
+    console.log("Listening https on " + port);
+  });
+} else {
+  app.listen(port, () => {
+    console.log("Listening on " + port);
+  });
 }
-
-DEV_ENV === false
-  ? app.listen(port, () => {
-      console.log("Listening on " + port);
-    })
-  : server.listen(port, () => {
-      console.log("Listening https on " + port);
-    });
