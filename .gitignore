@@ -24,3 +24,8 @@ node_modules/
 .netlify
 access.log
 *.pem
+WillItRain/.env
+WillItRain/public/rainyQuotes.json
+WillItRain/public/rainySong.json
+WillItRain/public/sunnyQuotes.json
+WillItRain/public/sunnySong.json
