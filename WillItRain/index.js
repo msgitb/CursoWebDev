@@ -169,14 +169,21 @@ const findMiddayDataPoint = (dataPoints) => {
   return midDay;
 };
 
-const options = {
-  key: fs.readFileSync(path.join(__dirname, "localhost-key.pem")),
-  cert: fs.readFileSync(path.join(__dirname, "localhost.pem")),
-};
+var options;
+if (DEV_ENV === true) {
+  options = {
+    key: fs.readFileSync(path.join(__dirname, "localhost-key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "localhost.pem")),
+  };
+}
 
-const server = https.createServer(options, app);
+var server;
 
-DEV_ENV === "false"
+if (DEV_ENV === true) {
+  server = https.createServer(options, app);
+}
+
+DEV_ENV === false
   ? app.listen(port, () => {
       console.log("Listening on " + port);
     })
