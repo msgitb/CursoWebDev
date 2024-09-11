@@ -16,11 +16,11 @@ const port = process.env.PORT || 3000;
 const API_KEY_OPEN_WEATHER = process.env.API_KEY_OPEN_WEATHER;
 const API_KEY_LYRICS = process.env.API_KEY_LYRICS;
 const API_UID_LYRICS = process.env.API_UID_LYRICS;
-const DEV_ENV = process.env.DEV_ENV;
+const DEV_ENV = process.env.DEV_ENV || "false";
 
 console.log(`DEV_ENV: ${DEV_ENV}`);
 
-if (DEV_ENV) {
+if (DEV_ENV === "true") {
   const sunnySong = JSON.parse(
       fs.readFileSync(path.join("public/sunnySong.json"))
     ),
@@ -174,7 +174,7 @@ const findMiddayDataPoint = (dataPoints) => {
 };
 
 var options;
-if (DEV_ENV === true) {
+if (DEV_ENV === "true") {
   options = {
     key: fs.readFileSync(path.join(__dirname, "localhost-key.pem")),
     cert: fs.readFileSync(path.join(__dirname, "localhost.pem")),
@@ -183,7 +183,7 @@ if (DEV_ENV === true) {
 
 var server;
 
-if (DEV_ENV === true) {
+if (DEV_ENV === "true") {
   server = https.createServer(options, app);
   server.listen(port, () => {
     console.log("Listening https on " + port);
