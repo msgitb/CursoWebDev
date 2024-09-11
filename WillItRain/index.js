@@ -100,7 +100,7 @@ const getSong = async (term) => {
         },
       }
     );
-    var pos = Math.floor(Math.random() * sunnySong.result.length);
+    var pos = Math.floor(Math.random() * response.data.result.length);
     return {
       message: `${response.data.result[pos].song} - <em>${response.data.result[pos].artist}</em>`,
       author: `Album: ${response.data.result[pos].album}`,
