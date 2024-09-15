@@ -11,32 +11,35 @@ const jkTypes = [];
 
 //1. GET a random joke
 app.get("/random", (req, res) => {
-  var jokeId = Math.floor(Math.random() * jokes.length);
-  res.status(200).send(jokes[jokeId]);
+  if (jokes.length === 0) {
+    res.status(404).send("No jokes found");
+  } else {
+    var jokeId = Math.floor(Math.random() * jokes.length);
+    res.status(200).send(jokes[jokeId]);
+  }
 });
 
 //2. GET a specific joke
 
 app.get("/jokes/:id", (req, res) => {
-  if (req.params.id < 1 || req.params.id > jokes.length)
-    res.status(404).send("Could not find joke");
-  res.status(200).send(jokes[req.params.id - 1]);
+  const id = parseInt(req.params.id);
+  if (id < 1 || id > jokes.length) res.status(404).send("Could not find joke");
+  else res.status(200).send(jokes[id - 1]);
 });
 
 //3. GET a jokes by filtering on the joke type
 app.get("/filter", (req, res) => {
-  console.log(req.query.type);
   const jkType = req.query.type;
-  console.log(jkType);
   if (jkType === undefined) {
     res.status(400).send("Bad Request");
+  } else {
+    const jokesToSend = jokes.filter((joke) => {
+      return joke.jokeType === jkType;
+    });
+    jokesToSend.length
+      ? res.status(200).send(jokesToSend)
+      : res.status(404).send("No jokes found for category: " + jkType);
   }
-  const jokesToSend = jokes.filter((joke) => {
-    return joke.jokeType === jkType;
-  });
-  jokesToSend.length
-    ? res.status(200).send(jokesToSend)
-    : res.status(404).send("No jokes found for category: " + jkType);
 });
 
 //4. POST a new joke
@@ -76,11 +79,11 @@ app.put("/jokes/:id", (req, res) => {
 
     if (indexOf === -1) {
       res.status(400).send("Joke not found");
+    } else {
+      jokeToPut = { id: id, jokeText: text, jokeType: type };
+      jokes[indexOf] = jokeToPut;
+      res.status(200).send(jokeToPut);
     }
-
-    jokeToPut = { id: id, jokeText: text, jokeType: type };
-    jokes[indexOf] = jokeToPut;
-    res.status(200).send(jokeToPut);
   } else {
     res.status(400).send("Bad Request");
   }
@@ -102,26 +105,48 @@ app.patch("/jokes/:id", (req, res) => {
     const indexOf = jokes.indexOf(jokeToPut);
     if (indexOf === -1) {
       res.status(400).send("Joke not found");
+    } else {
+      text = text || jokeToPut.jokeText;
+      type = type || jokeToPut.jokeType;
+
+      var jokeToPatch = {
+        id,
+        jokeText: text,
+        jokeType: type,
+      };
+      jokes[indexOf] = jokeToPatch;
+      res.status(200).send(jokeToPatch);
     }
-
-    text = text || jokeToPut.jokeText;
-    type = type || jokeToPut.jokeType;
-
-    var jokeToPatch = {
-      id,
-      jokeText: text,
-      jokeType: type,
-    };
-    jokes[indexOf] = jokeToPatch;
-    res.status(200).send(jokeToPatch);
   } else {
     res.status(400).send("Bad Request");
   }
 });
 
 //7. DELETE Specific joke
+app.delete("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  if (id < 0 || id > jokes.length) {
+    res.status(400).send({
+      error: `Joke with id: ${id} not found. No jokes were deleted.`,
+    });
+  } else {
+    const jokeToDelete = jokes.filter((joke) => joke.id === id)[0];
+    const indexJokeToDelete = jokes.indexOf(jokeToDelete);
+    if (indexJokeToDelete === -1) {
+      res.status(404).send("Joke not found");
+    } else {
+      jokes = jokes.slice(indexJokeToDelete, 1);
+      res.status(200).send("OK");
+    }
+  }
+});
 
 //8. DELETE All jokes
+app.delete("/all", (req, res) => {
+  jokes = [];
+  res.status(200).send("OK");
+});
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
