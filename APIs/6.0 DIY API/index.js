@@ -144,8 +144,12 @@ app.delete("/jokes/:id", (req, res) => {
 
 //8. DELETE All jokes
 app.delete("/all", (req, res) => {
-  jokes = [];
-  res.status(200).send("OK");
+  if (req.query.key === masterKey) {
+    jokes = [];
+    res.status(200).send("OK");
+  } else {
+    res.status(400).send({ error: "Not authorized" });
+  }
 });
 
 app.listen(port, () => {
