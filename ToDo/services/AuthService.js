@@ -24,7 +24,7 @@ export default class AuthService {
 
   generateAuthUrl() {
     return this.#oauthClient.generateAuthUrl({
-      access_type: "offline",
+      access_type: "online",
       scope: AuthService.#SCOPES,
       include_granted_scopes: true,
       prompt: "consent",
