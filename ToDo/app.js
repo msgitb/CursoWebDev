@@ -8,6 +8,7 @@ import AuthService from "./services/AuthService.js";
 import controllers from "./routes/index.js";
 import CookieService from "./services/CookieService.js";
 import { debug } from "console";
+import db from "./controllers/connection.js";
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -15,6 +16,9 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const getToken = (req) => {
+  return req.cookies[CookieService.ID_TOKEN_COOKIE.name];
+};
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -31,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  const idToken = req.cookies[CookieService.ID_TOKEN_COOKIE.name];
+  const idToken = getToken(req);
   if (!idToken) {
     console.log("No ID Token found, sending login page");
     return res.render("index.ejs");
@@ -42,7 +46,8 @@ app.get("/", (req, res) => {
 app.use("/api", controllers);
 
 app.use(async (req, res, next) => {
-  const idToken = req.cookies[CookieService.ID_TOKEN_COOKIE.name];
+  debug("CHECKING ID TOKEN COOKIE");
+  const idToken = getToken(req);
   if (!idToken) {
     console.log("No id token provided");
     return res.sendStatus(401);
@@ -65,11 +70,18 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.get("/profile", (req, res, next) => {
+app.get("/profile", async (req, res, next) => {
   try {
-    const { email, name, picture } = res.locals.user;
-    debug(res.locals.user);
-    return res.render("profile", { email, name, picture });
+    const { email, name, picture, sub } = res.locals.user;
+
+    if (!(await db.verifyUserExists(sub))) {
+      debug("User not found in DB, registering");
+      debug(await db.registerUser(sub, email, name));
+    } else {
+      debug("User found in DB, retrieving todos");
+      var todos = await db.listAllTODOS(sub);
+    }
+    return res.render("profile", { email, name, picture, todos });
   } catch (err) {
     console.error("Error sending profile page", err);
     return next(err);
@@ -84,13 +96,10 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render("error");
 });

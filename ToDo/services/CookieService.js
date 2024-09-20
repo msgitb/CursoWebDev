@@ -8,7 +8,7 @@ export default class CookieService {
       sameSite: "lax",
       path: "/api/auth/refresh",
       // 5 years
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 5 * 365 * 24 * 60 * 60 * 1000,
     },
   };
   static REFRESH_TOKEN_COOKIE_LOGOUT = {
@@ -20,7 +20,7 @@ export default class CookieService {
       sameSite: "lax",
       path: "/api/auth/logout",
       // 5 years
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 5 * 365 * 24 * 60 * 60 * 1000,
     },
   };
   static ID_TOKEN_COOKIE = {

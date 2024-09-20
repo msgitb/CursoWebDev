@@ -2,6 +2,7 @@ html {
   overflow-x: auto;
   height: 100vh;
 }
+
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
@@ -22,8 +23,11 @@ a {
 }
 
 .list-group {
-  overflow-y: scroll;
-  width: 50%;
-  min-width: 300px;
-  max-height: 50%;
+  overflow-y: auto;
+  min-width: 303px;
+  max-height: 40vh;
+}
+
+.input {
+  text-overflow: ellipsis;
 }
