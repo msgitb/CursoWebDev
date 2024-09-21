@@ -33,9 +33,10 @@
                                     <span>
                                         <input id="<%- todo.id%>-todo" name="content" type="text"
                                             onfocusout="document.querySelector('#editForm-<%- todo.id %>').submit()"
-                                            style="min-width: 20px; text-overflow: ellipsis; <%-todo.done ? 'text-decoration: line-through;' : '' %>"
-                                            value="<%- todo.content %>" class="w-75 border-0 shadow-none" <%-todo.done
-                                            ? 'disabled' : '' %>></input>
+                                            style="width: 80%;min-width: 20px; text-overflow: ellipsis;background-color: #fff !important;
+ <%-todo.done ? 'text-decoration: line-through;' : '' %>" value="<%- todo.content %>"
+                                            class="border-0 shadow-none bg-body-primary" <%-todo.done ? 'disabled' : ''
+                                            %>></input>
                                     </span>
                             </form>
                         </div>
