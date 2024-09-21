@@ -162,7 +162,7 @@ class Database {
 
     try {
       const result = await this.client.query(
-        "UPDATE todos SET delete=$1 WHERE id = $2",
+        "UPDATE todos SET deleted=$1 WHERE id = $2",
         [deleted, todo_id]
       );
       return result.rows;
