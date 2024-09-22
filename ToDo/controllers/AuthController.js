@@ -49,6 +49,15 @@ AuthController.get("/cookie", async (req, res, next) => {
   }
 });
 
+AuthController.post("/cookie", async (req, res, next) => {
+  debug("Hit post endpoint");
+  debug("body");
+  debug(req.body);
+  debug("query");
+  debug(req.query);
+  return res.redirect("/profile");
+});
+
 AuthController.get("/refresh", async (req, res) => {
   console.log("Obtaining new ID token with the refresh token");
   // Get the refresh token, will only be present on /refresh call
