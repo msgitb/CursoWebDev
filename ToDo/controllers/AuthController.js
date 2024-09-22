@@ -17,6 +17,7 @@ async function verifyToken(token) {
   // Verify the token with Google's public keys
   try {
     const decoded = jwt.verify(token, certs.keys[0].n, {
+      algorithms: ["RS256"],
       audience: CLIENT_ID, // Specify your client ID here
     });
 
