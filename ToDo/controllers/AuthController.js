@@ -68,6 +68,21 @@ AuthController.get("/cookie", async (req, res, next) => {
 
 AuthController.post("/cookie", async (req, res, next) => {
   verify(req.body.credential).catch(console.error);
+  res.cookie(
+    CookieService.ID_TOKEN_COOKIE.name,
+    req.body.credential,
+    CookieService.ID_TOKEN_COOKIE.cookie
+  );
+  res.cookie(
+    CookieService.REFRESH_TOKEN_COOKIE.name,
+    req.body.credential,
+    CookieService.REFRESH_TOKEN_COOKIE.cookie
+  );
+  res.cookie(
+    CookieService.REFRESH_TOKEN_COOKIE_LOGOUT.name,
+    req.body.credential,
+    CookieService.REFRESH_TOKEN_COOKIE_LOGOUT.cookie
+  );
 
   res.redirect("/");
 });
