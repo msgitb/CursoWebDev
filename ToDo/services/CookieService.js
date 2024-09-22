@@ -35,4 +35,16 @@ export default class CookieService {
       maxAge: 60 * 60 * 1000,
     },
   };
+  static TOKEN_ORIGIN = {
+    name: "TOKEN_ORIGIN",
+    cookie: {
+      domain: process.env.COOKIE_DOMAIN,
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+      // 1 hr
+      maxAge: 5 * 365 * 24 * 60 * 60 * 1000,
+    },
+  };
 }

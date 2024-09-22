@@ -42,7 +42,11 @@ AuthController.get("/cookie", async (req, res, next) => {
 
     const { accessToken, refreshToken, idToken } =
       await authService.handleOAuthRedirect(code);
-
+    res.cookie(
+      CookieService.TOKEN_ORIGIN.name,
+      "self",
+      CookieService.TOKEN_ORIGIN.cookie
+    );
     res.cookie(
       CookieService.ID_TOKEN_COOKIE.name,
       idToken,
@@ -74,14 +78,9 @@ AuthController.post("/cookie", async (req, res, next) => {
     CookieService.ID_TOKEN_COOKIE.cookie
   );
   res.cookie(
-    CookieService.REFRESH_TOKEN_COOKIE.name,
-    req.body.credential,
-    CookieService.REFRESH_TOKEN_COOKIE.cookie
-  );
-  res.cookie(
-    CookieService.REFRESH_TOKEN_COOKIE_LOGOUT.name,
-    req.body.credential,
-    CookieService.REFRESH_TOKEN_COOKIE_LOGOUT.cookie
+    CookieService.TOKEN_ORIGIN.name,
+    "post",
+    CookieService.TOKEN_ORIGIN.cookie
   );
 
   res.redirect("/");
@@ -122,6 +121,18 @@ AuthController.get("/refresh", async (req, res) => {
 });
 
 AuthController.get("/logout", async (req, res, next) => {
+  console.log(req.cookies[CookieService.TOKEN_ORIGIN.name]);
+  if (req.cookies[CookieService.TOKEN_ORIGIN.name] === "post") {
+    res.clearCookie(
+      CookieService.ID_TOKEN_COOKIE.name,
+      CookieService.ID_TOKEN_COOKIE.cookie
+    );
+    res.clearCookie(
+      CookieService.TOKEN_ORIGIN.name,
+      CookieService.TOKEN_ORIGIN.cookie
+    );
+    return res.redirect("/");
+  }
   try {
     // Revoke refresh token access
     const refreshToken =
