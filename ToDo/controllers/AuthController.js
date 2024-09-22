@@ -55,6 +55,35 @@ AuthController.post("/cookie", async (req, res, next) => {
   debug(req.body);
   debug("query");
   debug(req.query);
+  try {
+    const authService = new AuthService();
+    debug("CODE FROM REDIRECT");
+
+    const test = await authService.handleOAuthRedirect(req.body.g_csrf_token);
+    debug(test);
+
+    const { accessToken, refreshToken, idToken } = test;
+    res.cookie(
+      CookieService.ID_TOKEN_COOKIE.name,
+      idToken,
+      CookieService.ID_TOKEN_COOKIE.cookie
+    );
+    res.cookie(
+      CookieService.REFRESH_TOKEN_COOKIE.name,
+      refreshToken,
+      CookieService.REFRESH_TOKEN_COOKIE.cookie
+    );
+    res.cookie(
+      CookieService.REFRESH_TOKEN_COOKIE_LOGOUT.name,
+      refreshToken,
+      CookieService.REFRESH_TOKEN_COOKIE_LOGOUT.cookie
+    );
+
+    return res.redirect("/profile");
+  } catch (err) {
+    console.error("Error handling redirect", err);
+    return next(err);
+  }
   return res.redirect("/profile");
 });
 
