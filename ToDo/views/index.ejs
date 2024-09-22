@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="google-signin-client_id"
+    content="303195890971-l8gg6uuq4dn1khnjgeu1553tv5gaskh6.apps.googleusercontent.com">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <!-- Disable favicon request -->
@@ -13,8 +15,18 @@
 </head>
 
 <body>
-  <h1>Best ToDo App!</h1>
-  <a href="/api/auth/login">Login</a>
+  <div class="container main py-4 my-5 align-items-center text-end">
+
+    <h1>Best ToDo App!</h1>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <div id="g_id_onload" data-client_id="303195890971-l8gg6uuq4dn1khnjgeu1553tv5gaskh6.apps.googleusercontent.com"
+      data-login_uri="/">
+    </div>
+    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+      data-shape="rectangular" data-logo_alignment="left">
+    </div>
+    <a href="/api/auth/login">Login</a>
+  </div>
 </body>
 
 </html>

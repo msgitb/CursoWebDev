@@ -13,16 +13,16 @@
 <body>
     <div class="container main py-4 my-5 align-items-center justify-content-center text-center">
         <div class="container py-4">
-            <img class="rounded mx-auto img-fluid d-block" src="<%- picture %>">
-            <h1><%- name %>!</h1>
-            <h4><%- email %></h4>
+            <img class=" img-fluid border-dark rounded-circle border-5 " src="<%- picture %>">
+            <h2 class="fw-bold"><%- name %>!</h2>
+            <h5><%- email %></h5>
             <a href="/logout">Logout</a>
         </div>
 
 
         <div class="d-flex gap-4 py-md-5 align-content-center justify-content-center">
             <div class="list-group w-100 px-lg-5 text-start">
-                <% todos.forEach(todo=> { %>
+                <% todos && todos.forEach(todo=> { %>
                     <label for="" class="p-2 list-group-item d-flex justify-content-between">
                         <div class="w-100">
                             <form id="editForm-<%- todo.id %>" action="/api/todo/<%- todo.id %>" method="post">
