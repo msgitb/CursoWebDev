@@ -2,6 +2,30 @@ import express from "express";
 import AuthService from "../services/AuthService.js";
 import CookieService from "../services/CookieService.js";
 import { debug } from "console";
+import jwt from "jsonwebtoken";
+import fetch from "node-fetch";
+
+// Your client ID
+const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
+
+async function verifyToken(token) {
+  const googleCertsUrl = "https://www.googleapis.com/oauth2/v3/certs";
+  const response = await fetch(googleCertsUrl);
+  const certs = await response.json();
+
+  // Verify the token with Google's public keys
+  try {
+    const decoded = jwt.verify(token, certs.keys[0].n, {
+      audience: CLIENT_ID, // Specify your client ID here
+    });
+
+    debug("Token is valid:", decoded);
+    return decoded;
+  } catch (error) {
+    debug("Invalid token:", error);
+    return null;
+  }
+}
 
 const AuthController = express.Router();
 
@@ -50,41 +74,9 @@ AuthController.get("/cookie", async (req, res, next) => {
 });
 
 AuthController.post("/cookie", async (req, res, next) => {
-  debug("Hit post endpoint");
-  debug("body");
-  debug(req.body);
-  debug("query");
-  debug(req.query);
-  try {
-    const authService = new AuthService();
-    debug("CODE FROM REDIRECT");
-
-    const test = await authService.handleOAuthRedirect(req.body.g_csrf_token);
-    debug(test);
-
-    const { accessToken, refreshToken, idToken } = test;
-    res.cookie(
-      CookieService.ID_TOKEN_COOKIE.name,
-      idToken,
-      CookieService.ID_TOKEN_COOKIE.cookie
-    );
-    res.cookie(
-      CookieService.REFRESH_TOKEN_COOKIE.name,
-      refreshToken,
-      CookieService.REFRESH_TOKEN_COOKIE.cookie
-    );
-    res.cookie(
-      CookieService.REFRESH_TOKEN_COOKIE_LOGOUT.name,
-      refreshToken,
-      CookieService.REFRESH_TOKEN_COOKIE_LOGOUT.cookie
-    );
-
-    return res.redirect("/profile");
-  } catch (err) {
-    console.error("Error handling redirect", err);
-    return next(err);
-  }
-  return res.redirect("/profile");
+  // Call this function when you receive a POST request with 'credential'
+  verifyToken(receivedCredential);
+  res.redirect("/");
 });
 
 AuthController.get("/refresh", async (req, res) => {
