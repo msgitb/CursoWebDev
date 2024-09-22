@@ -1,6 +1,7 @@
 import express from "express";
 import AuthService from "../services/AuthService.js";
 import CookieService from "../services/CookieService.js";
+import { debug } from "console";
 
 const AuthController = express.Router();
 
@@ -19,6 +20,8 @@ AuthController.get("/cookie", async (req, res, next) => {
   try {
     const { code } = req.query;
     const authService = new AuthService();
+    debug("CODE FROM REDIRECT");
+    debug(code);
 
     const { accessToken, refreshToken, idToken } =
       await authService.handleOAuthRedirect(code);
