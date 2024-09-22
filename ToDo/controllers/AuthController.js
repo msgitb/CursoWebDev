@@ -6,7 +6,8 @@ import jwt from "jsonwebtoken";
 import fetch from "node-fetch";
 
 // Your client ID
-const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
+const CLIENT_ID =
+  "303195890971-l8gg6uuq4dn1khnjgeu1553tv5gaskh6.apps.googleusercontent.com";
 
 async function verifyToken(token) {
   const googleCertsUrl = "https://www.googleapis.com/oauth2/v3/certs";
