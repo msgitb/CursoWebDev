@@ -75,7 +75,8 @@ AuthController.get("/cookie", async (req, res, next) => {
 
 AuthController.post("/cookie", async (req, res, next) => {
   // Call this function when you receive a POST request with 'credential'
-  verifyToken(receivedCredential);
+  verifyToken(req.body.credential);
+  verifyToken(req.body.g_csrf_token);
   res.redirect("/");
 });
 
