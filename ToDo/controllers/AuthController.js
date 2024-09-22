@@ -4,29 +4,20 @@ import CookieService from "../services/CookieService.js";
 import { debug } from "console";
 import jwt from "jsonwebtoken";
 import fetch from "node-fetch";
+import { OAuth2Client } from "google-auth-library";
 
 // Your client ID
 const CLIENT_ID =
   "303195890971-l8gg6uuq4dn1khnjgeu1553tv5gaskh6.apps.googleusercontent.com";
-
-async function verifyToken(token) {
-  const googleCertsUrl = "https://www.googleapis.com/oauth2/v3/certs";
-  const response = await fetch(googleCertsUrl);
-  const certs = await response.json();
-
-  // Verify the token with Google's public keys
-  try {
-    const decoded = jwt.verify(token, certs.keys[0].n, {
-      algorithms: ["RS256"],
-      audience: CLIENT_ID, // Specify your client ID here
-    });
-
-    debug("Token is valid:", decoded);
-    return decoded;
-  } catch (error) {
-    debug("Invalid token:", error);
-    return null;
-  }
+const client = new OAuth2Client();
+async function verify(token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: CLIENT_ID,
+  });
+  const payload = ticket.getPayload();
+  const userid = payload["sub"];
+  debug(payload);
 }
 
 const AuthController = express.Router();
@@ -76,9 +67,8 @@ AuthController.get("/cookie", async (req, res, next) => {
 });
 
 AuthController.post("/cookie", async (req, res, next) => {
-  // Call this function when you receive a POST request with 'credential'
-  verifyToken(req.body.credential);
-  verifyToken(req.body.g_csrf_token);
+  verify(token).catch(console.error);
+
   res.redirect("/");
 });
 
