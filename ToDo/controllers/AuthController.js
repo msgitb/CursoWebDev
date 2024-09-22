@@ -67,7 +67,7 @@ AuthController.get("/cookie", async (req, res, next) => {
 });
 
 AuthController.post("/cookie", async (req, res, next) => {
-  verify(token).catch(console.error);
+  verify(req.body.credential).catch(console.error);
 
   res.redirect("/");
 });
