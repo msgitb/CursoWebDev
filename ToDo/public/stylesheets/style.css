@@ -38,3 +38,11 @@ a {
 .img-app {
   height: 50vh;
 }
+
+.g_id_signin {
+  width: 100%;
+}
+
+.g_id_signin > div {
+  margin: 0 auto;
+}
