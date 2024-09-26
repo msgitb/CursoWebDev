@@ -66,7 +66,7 @@ app.use(async (req, res, next) => {
       CookieService.ID_TOKEN_COOKIE.name,
       CookieService.ID_TOKEN_COOKIE.cookie
     );
-    return res.sendStatus(401);
+    return res.redirect("/");
   }
 });
 

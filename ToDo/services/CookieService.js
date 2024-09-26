@@ -32,7 +32,7 @@ export default class CookieService {
       sameSite: "lax",
       path: "/",
       // 1 hr
-      maxAge: 60 * 60 * 1000,
+      maxAge: 15 * 24 * 60 * 60 * 1000,
     },
   };
   static TOKEN_ORIGIN = {
