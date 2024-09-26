@@ -50,7 +50,7 @@ app.use(async (req, res, next) => {
   const idToken = getToken(req);
   if (!idToken) {
     console.log("No id token provided");
-    return res.sendStatus(401);
+    return res.redirect("/");
   }
 
   // Extract user information from ID token
