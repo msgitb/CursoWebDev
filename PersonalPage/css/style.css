@@ -1,6 +1,11 @@
 .gradient-background {
-  background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
   background-size: 180% 180%;
   animation: gradient-animation 18s ease infinite;
 }
@@ -23,21 +28,21 @@
   border-radius: 0.75rem;
 }
 
-.header{
-  letter-spacing: .2rem;
+.header {
+  letter-spacing: 0.2rem;
   color: aliceblue;
 }
 
-.default-spacing{
-  letter-spacing: .1rem;
+.default-spacing {
+  letter-spacing: 0.1rem;
 }
 
-.big-spacing{
-  letter-spacing: .3rem;
+.big-spacing {
+  letter-spacing: 0.3rem;
 }
 
-.lead{
-  letter-spacing: .1rem;
+.lead {
+  letter-spacing: 0.1rem;
   color: aliceblue;
 }
 
@@ -46,11 +51,10 @@
   border-radius: 50%;
 }
 
-.nav-item{
+.nav-item {
   padding-right: 1rem;
 }
 
-.tech-image:hover{
- background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(229, 229, 230, 0.7) 100%);
- border-radius: 40%;
+.tech-image:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
