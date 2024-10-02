@@ -55,6 +55,11 @@
   padding-right: 1rem;
 }
 
+.nav-link:hover {
+  text-shadow: 1px 1px 2px black, 0 0 1em rgba(51, 0, 255, 0.702),
+    0 0 0.2em rgb(0, 187, 255);
+}
+
 .tech-image:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
